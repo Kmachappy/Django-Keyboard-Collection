@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- flex grow container to make sure the body content expands all the whole viewport  -->
+<div class="flex-grow my-10">
+    <!-- {% for keyboard in keyboards %}
+        <div class="flex flex-col items-center justify-center">
+            <h1 class="text-5xl">{{ keyboard.name }}</h1>
+            <hr>
+            <h1 class="text-5xl">{{ keyboard.description }}</h1>
+        </div>
+    {% endfor %} -->
+    <h1 class="mx-auto p-3 text-2xl max-w-2xl">
+        Keyboard list</h1>
+    <!-- {{keyboards.0.name}} -->
+    {% for keyboard in keyboards %}
+    <a href="#" class="my-5 mx-auto block p-6 max-w-2xl bg-white rounded-lg border border-gray-200 shadow-md hover:bg-red-100 dark:bg-slate-600 dark:border-gray-700 dark:hover:bg-gray-700">
+        <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{keyboard.name}}</h5>
+        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">type: {{keyboard.type}}</h5>
+        <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Price: {{keyboard.price}}</h5>
+        <p class="font-normal text-gray-700 dark:text-gray-400">Description:</p>
+        <p class="font-normal text-gray-700 dark:text-gray-400">{{keyboard.description}}</p>
+    </a>
+    {% endfor %}
+</div>
+{% endblock %}
