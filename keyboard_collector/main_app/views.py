@@ -1,19 +1,20 @@
-from django.shortcuts import render
-from .models import Keyboard
+from django.shortcuts import render, redirect
+from .models import Keyboard, Part, Cleaning
+from django.views.generic import CreateView, UpdateView, DeleteView
+from .forms import CleaningForm
 
-# class Keyboard:
-#     def __init__(self, name, type, description, price):
-#         self.name = name
-#         self.type = type
-#         self.description = description
-#         self.price = price
-
-# keyboards = [
-#     Keyboard('Keyboard 1', 'Type 1', 'Description 1', 'Price 1'),
-#     Keyboard('Keyboard 2', 'Type 2', 'Description 2', 'Price 2'),
-#     Keyboard('Keyboard 3', 'Type 3', 'Description 3', 'Price 3'),
+class KeyboardCreate(CreateView):
+    model = Keyboard
+    fields = ['name', 'type', 'description', 'price']
+    success_url = '/keyboards/'
     
-# ]
+class KeyboardUpdate(UpdateView):
+    model = Keyboard
+    fields = ['type', 'description', 'price']
+ 
+class KeyboardDelete(DeleteView):
+    model = Keyboard
+    success_url = '/keyboards/'   
 
 
 # Create your views here.
@@ -26,3 +27,26 @@ def about(request):
 def keyboards_index(request):
     keyboards = Keyboard.objects.all()
     return render(request, 'keyboards/index.html', {'keyboards': keyboards})
+
+def keyboards_detail(request, keyboard_id):
+    keyboard = Keyboard.objects.get(id=keyboard_id)
+    cleaning_form = CleaningForm()
+    return render(request, 'keyboards/detail.html', {'keyboard': keyboard, 'cleaning_form': cleaning_form})
+
+def add_cleaning(request, keyboard_id):
+    # create the ModelForm using the data in request.POST
+    form = CleaningForm(request.POST)
+    print(form)
+    # keyboard = Keyboard.objects.get(id=keyboard_id)
+    # if the form is valid, save the data to the database
+    if form.is_valid():
+        # don't save the form to the database yet
+        new_cleaning = form.save(commit=False)
+        new_cleaning.keyboard_id = keyboard_id
+        new_cleaning.save()
+    return redirect('detail', keyboard_id=keyboard_id)
+
+def associate_part(request, keyboard_id, part_id):
+    Keyboard.objects.get(id=keyboard_id).parts.add(part_id)
+    return redirect('detail', keyboard_id=keyboard_id)
+

@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- flex grow container to make sure the body content expands all the whole viewport  -->
+{% comment %} <div class=" flex mx-auto flex-grow my-10 items-center justify-center max-w-4xl">
+
+    <h1 class="mx-auto p-3 text-2xl ">
+        Keyboard Details</h1>
+       
+        <a href="#" class="block p-6 bg-white hover:bg-gray-100 shadow-md border border-gray-200 rounded-lg max-w-sm">
+            <h5 class="text-gray-900 font-bold text-2xl tracking-tight mb-2">Noteworthy technology acquisitions 2021</h5>
+            <p class="font-normal text-gray-700">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+        </a>
+</div> {% endcomment %}
+
+<div class="flex-grow p-6">
+  <h1 class="mx-auto p-3 text-2xl">
+    Keyboard Details</h1>
+   <div class="row">
+    <div class="col s6">
+
+      <div class="card">
+          <div class="card-content">
+            <span class="card-title">{{ keyboard.name }}</span>
+            <p>Breed: {{ keyboard.type }}</p>
+            <p>Description: {{ keyboard.description }}</p>
+            {% if cat.age > 0 %}
+              <p>Age: {{ cat.age }}</p>
+            {% else %}
+              <p>Age: Kitten</p>
+            {% endif %}
+          </div>
+          <div class="card-action">
+              
+              <a href="{% url 'keyboards_update' keyboard.id %}">Edit</a>
+              <a href="{% url 'keyboards_delete' keyboard.id %}">Delete</a>
+            </div>
+       </div>
+    </div>
+    <div class="col s6">
+      <form action="{% url 'add_cleaning' keyboard.id %}" method="post">
+        {% csrf_token %}
+        {{ cleaning_form.as_p }}
+        <input class='mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' type="submit" class="btn" value="Add Cleaning">
+      </form>
+      <br>
+    {% if keyboard.cleaned_for_today %}
+      <div class="card-panel teal-text center-align">{{keyboard.name}} has all the required cleaning</div>
+    {% else %}
+      <div class="card-panel red-text center-align">{{keyboard.name}} Needs Cleaning</div>
+    {% endif %}
+      <table class="striped">
+        <thead>
+          <tr><th>Date</th><th>Cleaning</th></tr>
+        </thead>
+        <tbody>
+          {{keyboard.cleaning_set.all.1}} 
+          {% for cleaning in keyboard.cleaning_set.all %}
+            <tr>
+              <td>{{cleaning.date}}</td>
+              <td>{{cleaning.get_type_display}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+   </div>
+   
+</div>
+
+<script>
+  var dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+  var selectEl = document.getElementById('id_type');
+  M.FormSelect.init(selectEl);
+</script>
+{% endblock %}
