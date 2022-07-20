@@ -10,6 +10,7 @@ urlpatterns = [
     path('keyboards/<int:pk>/update/', views.KeyboardUpdate.as_view(), name='keyboards_update'),
     path('keyboards/<int:pk>/delete/', views.KeyboardDelete.as_view(), name='keyboards_delete'),
     path('keyboards/<int:keyboard_id>/add_cleaning/', views.add_cleaning, name='add_cleaning'),
+    path('keyboards/<int:keyboard_id>/add_photo/', views.add_photo, name='add_photo'),
     
     path('keyboards/<int:keyboard_id>/associated_part/<int:part_id>/', views.associate_part, name='associate_part'),
     
