@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="flex-grow my-10">
+<h1 class="mx-auto p-3 text-2xl max-w-2xl">
+    Part list</h1>
+{% for part in part_list %}
+  <a href="{% url 'parts_detail' part.id %}" class="my-5 mx-auto block p-6 max-w-2xl bg-white rounded-lg border border-gray-200 shadow-md hover:bg-red-100 dark:bg-slate-600 dark:border-gray-700 dark:hover:bg-gray-700">
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Part Name: {{part.name}}</h5>
+    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Type: {{part.type}}</h5>
+  </a>
+{% endfor %}
+
+
+
+
+
+</div>
+
+{% endblock %}

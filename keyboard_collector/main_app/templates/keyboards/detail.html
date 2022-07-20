@@ -21,13 +21,9 @@
       <div class="card">
           <div class="card-content">
             <span class="card-title">{{ keyboard.name }}</span>
-            <p>Breed: {{ keyboard.type }}</p>
+            <p>Type: {{ keyboard.type }}</p>
             <p>Description: {{ keyboard.description }}</p>
-            {% if cat.age > 0 %}
-              <p>Age: {{ cat.age }}</p>
-            {% else %}
-              <p>Age: Kitten</p>
-            {% endif %}
+
           </div>
           <div class="card-action">
               
@@ -64,7 +60,51 @@
       </table>
     </div>
    </div>
-   
+
+   <hr>
+   <div class="row mt-8">
+     <div class="col s6">
+       <h3 class="text-4xl">{{ keyboard.name }}'s Parts</h3>
+       {% if keyboard.parts.count %}
+         {% for part in keyboard.parts.all %}
+           <div class="card">
+         <div class="card-content">
+           <span class="card-title">
+              <span class="text-green-500">{{ part.name }}</span>: {{ part.type }}
+               </span>
+             </div>
+           </div>
+         {% endfor %}
+       {% else %}
+         <h5>No Toys :(</h5>
+       {% endif %}
+     </div>
+     <!-- Available toys will come after this line -->
+     <div class="col s6">
+      <h3 class="text-4xl">Available Parts</h3>
+      {% if parts.count %}
+        {% for part in parts.all %}
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title">
+                <span class="text-green-500">{{ part.name }}</span>: {{ part.type }}
+              </span>
+            </div>
+            <div class="card-action">
+              <form action="{% url 'associate_part' keyboard.id part.id %}" method="post">
+                {% csrf_token %}
+                <button class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"  type="submit" class="btn">Add</button>
+              </form>
+            </div>
+          </div>
+        {% endfor %}
+      {% else %}
+        <h5>{{cat.name}} Already Has All Toys Available</h5>
+      {% endif %}
+    </div>
+   </div>
+
+
 </div>
 
 <script>

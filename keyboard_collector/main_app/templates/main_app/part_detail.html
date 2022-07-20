@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+<div class="flex-grow m-14">
+<h1 class="mx-auto p-3 m-10 text-2xl">
+    Part Details</h1>
+
+
+      <div class="card">
+          <div class="card-content">
+            <span class="card-title">Name: {{ part.name }}</span>
+            <p class="text-xl">Type: {{ part.type }}</p>
+
+
+          </div>
+          <div class="card-action">
+              
+              <a href="{% url 'parts_update' part.id %}">Edit</a>
+              <a href="{% url 'parts_delete' part.id %}">Delete</a>
+            </div>
+       
+</div>
+</div>
+    {% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="flex-grow m-14">
+  <h1 class="text-5xl">Delete Part</h1>
+    <p class="text-xl">
+        Are you sure you want to delete <span class="teal-text">{{ object.name }}</span>?
+    </p>
+
+
+  <form action="" method="POST">
+    {% csrf_token %}
+    <input class="mt-10 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" type="submit" value="Yes - Delete!" class="btn">
+    <a href="{% url 'parts_detail' object.id %}" class="text-red-700">Cancel</a>
+  </form>
+</div>
+{% endblock %}
