@@ -19,4 +19,6 @@ urlpatterns = [
     path('parts/create/', views.PartCreate.as_view(), name='parts_create'),
     path('parts/<int:pk>/update/', views.PartUpdate.as_view(), name='parts_update'),
     path('parts/<int:pk>/delete/', views.PartDelete.as_view(), name='parts_delete'),
+    
+    path('accounts/signup/', views.signup, name='signup'),
 ]

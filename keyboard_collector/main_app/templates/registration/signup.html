@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+<!-- attention this makes the container grow the appropriate sice and flex is able to make the box below a flex item with centering -->
+<div class="grow flex justify-center items-center  w-1/3 mx-auto">
+    <!-- this makes the flex item grow the size of the whole container that is w-1/3 -->
+    <div class="grow">
+        
+        <h1 class="text-2xl mb-3">Sign up</h1>
+        <form method='post' action="{% url 'signup' %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit"  class="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" class="btn" value="signup">
+        <input type="hidden" name="next" value="{{ next }}">
+    </form>
+    </div>
+</div>
+
+
+{% endblock %}

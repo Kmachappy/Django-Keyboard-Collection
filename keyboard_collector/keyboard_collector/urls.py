@@ -21,6 +21,16 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # this is the path to the app
     path("", include("main_app.urls")),
+    # include the built-in auth urls for the built-in auth
+    path('accounts/', include('django.contrib.auth.urls')),
+    # accounts/login/ [name='login']
+    # accounts/logout/ [name='logout']
+    # accounts/password_change/ [name='password_change']
+    # accounts/password_change/done/ [name='password_change_done']
+    # accounts/password_reset/ [name='password_reset']
+    # accounts/password_reset/done/ [name='password_reset_done']
+    # accounts/reset/<uidb64>/<token>/ [name='password_reset_confirm']
+    # accounts/reset/done/ [name='password_reset_complete']
     # django_browser_reload is a django app that reloads the page when a change is made
     path("__reload__/", include("django_browser_reload.urls")),
 ]
