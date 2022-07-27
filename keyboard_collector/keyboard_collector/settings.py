@@ -136,3 +136,8 @@ INTERNAL_IPS = [
 LOGIN_REDIRECT_URL = '/keyboards/'
 
 LOGOUT_REDIRECT_URL = '/'
+
+# configure django app for heroku
+
+import django_on_heroku
+django_on_heroku.settings(locals())
